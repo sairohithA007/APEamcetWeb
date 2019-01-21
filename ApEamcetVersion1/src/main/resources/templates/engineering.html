@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+    <script>
+	$( document ).ready(function() {
+	   $("#engineeringLI").addClass("active");
+	});
+	</script>
+</head>
+	
+ <body style="margin:auto;">
+
+
+
+
+<div align="center" layout:fragment="header">
+<br/>
+<form action="#" method="post" th:action="@{/getEngData}" th:object="${dataModel}" class="form-horizontal" name="engForm" id="engForm">
+<input type="hidden" id="page" name="page" th:field="*{page}"/>
+<div class="form-group">
+    <label for="rank" class="col-sm-2 control-label  text-right">Rank:*</label>
+    <div class="col-sm-6">
+      <input type="number" class="form-control" th:field="*{rank}" id="rank" name="rank" placeholder="rank"  min="1" max="300000" required="required"/>
+    </div>
+    </div>
+
+    <div class="form-group">
+    <label for="CourseCode" class="col-sm-2 control-label text-right">Branch:*</label>
+    <div class="col-sm-6">
+      <select th:field="*{CourseCode}" id="CourseCode" name="CourseCode" class="form-control" required="required">
+      <option value="" name="">Select Branch</option>
+  <option value="CSE" name ="CSE">CSE- Computer Science Engineering</option>
+  <option value="INF" name ="INF">INF- Information Technology</option>
+  <option value="ECE" name ="ECE">ECE- Electronics and Communications Engineering</option>
+  <option value="EEE" name ="EEE">EEE- Electronics and Electrical Engineering</option>
+      <option value="MEC" name ="MEC">MEC- Mechanical Engineering</option>
+  <option value="CIV" name ="CIV">CIV- Civil</option>
+  <option value="CHE" name ="CHE">CHE- Chemical</option>
+  <option value="BME" name ="BME">BME- Bio-Medical Engineering</option>
+   <option value="EIE" name ="EIE">EIE- Electronics and Instrumentation Engineering</option>
+  <option value="MIN" name ="MIN">MIN- Mining</option>
+  <option value="AUT" name ="AUT">AUT- Automobile Engineering</option>
+ <option value="ECS" name ="ECS">ECS- Electronics and Control Systems Engineering</option>
+  <option value="PET" name ="PET">PET- Petroleum Technology</option>
+  <option value="CEE" name ="CEE">CEE- Civil Environmental Engineering</option>
+  <option value="CPE" name ="CPE">CPE- Chemical Petro Engineering</option>
+  <option value="GIN" name ="GIN">GIN- Geo-Informatics</option>
+  <option value="IST" name ="IST">IST- Instrumentation Engineering and Technology</option>
+  <option value="MET" name ="MET">MET- Metallurgical Engineering</option>
+  <option value="NAM" name ="NAM">NAM- Naval Architecture and Marine Engineering</option>
+  <option value="ANE" name ="ANE">ANE- Aeronautical Engineering</option>
+  <option value="PWR" name ="PWR">PWR- Power Plant Engineering</option>
+  <option value="ETM" name ="ETM">ETM- Electronics and Telematics</option>
+  <option value="ECM" name ="ECM">ECM- Electronics and Computer Engineering</option>
+  <option value="ASE" name ="ASE">ASE- Aero Space Engineering</option>
+  <option value="MCT" name ="MCT">MCT- Mechtronics Engineering</option>
+  <option value="CER" name ="CER">CER- Ceramic Technology</option>
+  <option value="IPE" name ="IPE">IPE- Industrial Production Engineering</option>
+  <option value="MMT" name ="MMT">MMT- Metallurgical and Material Engineering</option>
+  <option value="FPT" name ="FPT">FPT- Food Processing Technology</option>
+  <option value="CSS" name ="CSS">CSS- Computer Sciences and System Engineering</option>
+  <option value="TEX" name ="TEX">TEX- Textile Engineering</option>
+     </select>
+    </div>
+    </div>
+
+    <div class="form-group">
+    <label for="District" class="col-sm-2 control-label text-right">District:</label>
+    <div class="col-sm-6">
+      <select  name="District" th:field="*{District}" id="District" class="form-control">
+      <option value="All" name="All">All</option>
+  <option value="ATP" name="ATP">ATP-ANANTAPUR</option>
+  <option value="CTR" name="CTR">CTR-CHITOOR</option>
+  <option value="KDP" name="KDP">KDP-KADAPA</option>
+  <option value="NLR" name="NLR">NLR-NELLORE</option>
+      <option value="PKS" name="PKS">PKS-PRAKASAM</option>
+  <option value="KNL" name="KNL">KNL-KURNOOL</option>
+  <option value="GTR" name="GTR">GTR-GUNTUR</option>
+  <option value="KRI" name="KRI">KRI-KRISHNA</option>
+      <option value="WG" name="WG">WG-WEST GODAVARI</option>
+  <option value="EG" name="EG">EG-EAST GODAVARI</option>
+  <option value="VSP" name="VSP">VSP-VISAKAPATNAM</option>
+  <option value="VZM" name="VZM">VZM-VIZIANAGARAM</option>
+  <option value="SKL" name="SKL">SKL-SRIKAKULAM</option>
+     </select>
+    </div>
+    </div>
+
+     <div class="form-group">
+    <label for="category" class="col-sm-2 control-label  text-right">Category:*</label>
+    <div class="col-sm-6">
+      <select  name="category" th:field="*{category}" id="category" class="form-control" required="required">
+      <option value="" name="">Select Category</option>
+  <option value="ocb" name="OCB">OC-Boys</option>
+  <option value="ocg" name="OCG">OC-Girls</option>
+  <option value="scb" name="SCB">SC-Boys</option>
+  <option value="scg" name="SCG">SC-Girls</option>
+  <option value="stb" name="STB">ST-Boys</option>
+  <option value="stg" name="STG">ST-Girls</option>
+  <option value="bcab" name="BCAB">BC-A-Boys</option>
+  <option value="bcag" name="BCAG">BC-A-Girls</option>
+  <option value="bcbb" name="BCBB">BC-B-Boys</option>
+  <option value="bcbg" name="BCBG">BC-B-Girls</option>
+  <option value="bccb" name="BCCB">BC-C-Boys</option>
+  <option value="bccg" name="BCCG">BC-C-Girls</option>
+  <option value="bcdb" name="BCDB">BC-D-Boys</option>
+  <option value="bcdg" name="BCDG">BC-D-Girls</option>
+  <option value="bceb" name="BCEB">BC-E-Boys</option>
+  <option value="bceg" name="BCEG">BC-E-Girls</option>
+     </select>
+    </div> 
+    </div>
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-6">
+     <input type="reset" class="btn btn-default"/>	
+      <button type="submit" class="btn btn-default" onclick="refresh()">Submit</button>
+    </div>
+ </div> 
+ </form>
+  <div th:if="${rows>0}">
+   <nav>
+  <ul class="pager">
+    <div th:if="${page!=0}"> <li class="previous"><a href="#"  onclick="myFunction(-1)">&larr; Previous</a></li></div>
+    <div th:if="${rows==10}"><li class="next"><a href="#" onclick="myFunction(1)">Next &rarr; </a></li></div>
+  </ul>
+</nav>
+
+
+	<br/>
+	<div class="table-responsive">
+	<table id="example" class="table table-bordered" th:rows="${rows}" > 
+	<tr>
+		<th>Code</th>
+		<th>College Name</th>
+		<th>Branch</th>
+		<th>Last Rank</th>
+		<th>Place</th>
+		<th>District</th>
+	</tr>
+	<tr th:each="dataModel : ${dataList}" th:object="${dataModel}" >
+		<td th:text="${dataModel.Code}"></td>
+		<td th:text="${dataModel.InstituteName}"></td>
+		<td th:text="${dataModel.CourseCode}"></td>
+		<td th:text="${dataModel.rank}"></td>
+		<td th:text="${dataModel.Place}"></td>
+		<td th:text="${dataModel.District}"></td>
+	
+	</tr>
+	</table> 
+	</div>
+	<form action="#" method="post" th:action="@{/getEngUserData}" th:object="${dataModel}" class="form-horizontal" name="dataForm" id="dataForm">
+<input type="hidden" th:field="*{rank}"/>
+<input type="hidden" th:field="*{category}"/>
+<input type="hidden" th:field="*{CourseCode}"/>
+<input type="hidden" th:field="*{District}"/>
+<input type="submit" class="btn btn-default" value="Download"/>
+</form>	
+	
+	</div>
+
+</div>
+</body>
+</html>

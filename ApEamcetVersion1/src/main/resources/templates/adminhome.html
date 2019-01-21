@@ -1,0 +1,61 @@
+ <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
+	<head>
+	 
+	<title>Home Page</title>
+	<script>
+	$( document ).ready(function() {
+	   $("#adminLI").addClass("active");
+	});
+	</script>
+	
+	</head>
+
+	<body>
+	 
+	<div layout:fragment="header" align="center">
+	<ul class="nav nav-tabs">
+  <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')"  role="presentation" id="addLI"><a th:href="@{/add}">Add User</a></li>
+  <li role="presentation" id="uploadLI"><a th:href="@{/upload}">Upload Data</a></li>
+  <li role="presentation" id="listLI"><a th:href="@{/list}">List Users</a></li>
+  <li role="presentation" id="downloadLI"><a th:href="@{/download}">Download</a></li>
+  <li role="presentation" id="agriculturalLI" class="pull-right"><form style="padding: 10px 15px; cursor: pointer;" th:action="@{/logout}" method="post" align="center" id="logoutForm"> <a onclick="document.getElementById('logoutForm').submit();">Sign Out</a></form></li>
+  <li role="presentation" id="medicalLI" class="pull-right" ><a href="javascript:void(0)"><label th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]!</label></a></li>
+  
+</ul>
+<div th:if="${count>0}">
+	<div class="table-responsive">
+        <table border="1" align="center" cellpadding="10" cellspacing="10" class="table table-bordered" >
+        
+			<thead>
+				<th>ID</th>
+				<th>Contact</th>
+				<th>Email</th>
+				<th>User Name</th>
+				<th>Role</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</thead>
+			<tbody >
+			   <tr th:each="userPojo : ${userList}" th:object="${userPojo}"> <!--  th:with="recordsCount=${recordsCount} + 1" -->
+				 <td th:text="${userPojo.id}"></td> 
+				<td th:text="${userPojo.contact}"></td>
+				<td th:text="${userPojo.email}"></td>
+				<td th:text="${userPojo.username}"></td>
+				<td th:text="${userPojo.rolename}"></td>
+				<td><div th:if="${count==1}">Not Applicable</div><div th:if="${count!=1}"><a th:href="${'/edit/' + userPojo.id}">Edit</a></div></td>	
+		 		<td><div th:if="${#httpServletRequest.remoteUser==userPojo.username}">Not Applicable</div><div th:if="${#httpServletRequest.remoteUser!=userPojo.username}"><a th:href="${'/delete/' + userPojo.id}" >Delete</a></div></td>
+               </tr>
+			</tbody>
+		</table> 
+		</div> 
+	  </div>
+</div>
+	
+
+	</body>
+</html>

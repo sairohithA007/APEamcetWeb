@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+	<script>
+	$( document ).ready(function() {
+	   $("#homeLI").addClass("active");
+	});
+	</script>
+	</head>
+
+	<body>
+	<div layout:fragment="header">
+	  	
+
+	<div layout:fragment="content">
+	
+	<br/>
+	<div align="center"> 																	
+	<form method="post" th:object="${dataPojo}" action="#" name="engForm" id="engForm" th:action="@{/getDistrictData}"> 
+ 	 <input type="hidden" id="page" name="page" th:field="*{page}"/> 
+ 	 <input type="hidden" id="district" name="district" th:field="*{district}"/> 
+	 <img th:src="@{/map.png}" alt="Andhra Pradesh" class="img-responsive" usemap="#Map"/>
+	 <map name="Map" id="Map">
+     <area alt="Kurnool" title="Kurnool" id="Kurnool" shape="poly"  th:href="${'/getDistrictData/' + 'KNL'}"  coords="48,249,143,240,124,303,44,285"></area>
+    <area alt="" title="Prakasam" id="Prakasam" th:href="${'/getDistrictData/' + 'PKS'}" shape="poly" coords="138,290,211,301,233,257,147,231" />
+    <area alt="" title="Anantapur" th:href="${'/getDistrictData/' + 'ATP'}" shape="poly" coords="28,300,85,295,95,333,120,363,92,369,63,376,37,370,27,327" />
+    <area alt="" title="Cuddapah" th:href="${'/getDistrictData/' + 'KDP'}" shape="poly" coords="103,307,132,307,151,295,160,308,164,322,172,342,175,357,177,369,169,376,157,372,138,372,124,366,113,348,104,342,97,330,97,321" />
+	<area alt="" title="Nellore" th:href="${'/getDistrictData/' + 'NLR'}" shape="poly" coords="158,299,192,301,212,304,220,341,216,352,220,368,224,385,219,388,203,376,192,369,180,366,162,325" />
+	<area alt="" title="Chitoor" th:href="${'/getDistrictData/' + 'CTR'}" shape="poly" coords="102,379,120,368,135,372,151,373,159,371,169,378,185,370,195,373,205,379,208,388,208,394,189,404,162,414,137,417,128,427,115,440" />
+	<area alt="" title="Guntur" th:href="${'/getDistrictData/' + 'GTR'}" shape="poly" coords="167,230,176,208,192,205,206,207,212,203,220,207,230,211,245,214,251,223,256,231,259,238,259,247,256,251" />
+	<area alt="" title="Krishna" th:href="${'/getDistrictData/' + 'KRI'}" shape="poly" coords="212,186,227,184,229,206,242,211,249,218,258,227,262,240,260,252,266,256,272,250,275,244,279,233,282,226,285,222,290,222,293,222,290,218,287,212,281,207,268,197,258,179,246,175,218,192,218,199,224,204" />
+	<area alt="" title="West Godavari" th:href="${'/getDistrictData/' + 'WG'}" shape="poly" coords="261,175,272,171,283,165,296,159,302,165,307,180,309,190,308,197,312,205,314,209,310,215,308,222,298,217,287,213,267,202" />
+	<area alt="" title="East Godavari"  th:href="${'/getDistrictData/' + 'EG'}" shape="poly" coords="297,151,305,171,311,192,317,212,317,221,335,212,344,203,344,189,346,178,349,171,360,163,355,155,323,147,317,134,323,130,316,126,323,122,303,138" />
+	<area alt="" title="Visakapatnam" th:href="${'/getDistrictData/' + 'VSP'}" shape="poly" coords="328,119,333,143,347,151,359,155,365,165,382,154,393,147,402,136,406,133,406,125,386,121,381,102,350,97" />
+	<area alt="" title="Vizianagaram" th:href="${'/getDistrictData/' + 'VZM'}" shape="poly" coords="386,92,394,100,395,111,388,121,393,128,398,123,405,119,412,125,419,120,422,115,427,113,427,107,422,103,417,97,416,90,415,85,414,82,414,76,420,73,425,71,425,63,422,56,416,56,408,59,393,76,387,81,386,81" />
+	 <area alt="" title="Srikakulam" th:href="${'/getDistrictData/' + 'SKL'}" shape="poly" coords="419,79,417,89,420,96,448,102,458,88,469,78,476,71,481,64,482,62,483,59,477,57" />
+	</map>
+	<div th:if="${dataCount==0}">Click on Any District</div>
+	<div th:if="${dataCount!=0}">
+	 <nav>
+  <ul class="pager">
+    <div th:if="${page!=0}"><li class="previous"><a href="#"  onclick="myFunction(-1)">&larr; Previous</a></li></div>
+   <div th:if="${rows!=0}"> <li class="next"><a href="#" onclick="myFunction(1)">Next &rarr; </a></li></div>
+  </ul>
+</nav>
+<div class="table-responsive">
+	<table id="example" class="table table-bordered" th:rows="${dataCount}"> 
+	<tr>
+		<th>Code</th>
+		<th>College Name</th>
+		<th>Branch</th>
+		<th>Type</th>
+		<th>Place</th>
+		<th>District</th>
+	</tr>
+	<tr th:each="dataPojo : ${dataList}" th:object="${dataPojo}">
+		<td th:text="${dataPojo.Code}"></td>
+		<td th:text="${dataPojo.InstituteName}"></td>
+		<td th:text="${dataPojo.CourseCode}"></td>
+		<td th:text="${dataPojo.type}"></td>
+		<td th:text="${dataPojo.Place}"></td>
+		<td th:text="${dataPojo.District}"></td>
+	
+	</tr>
+	</table> 
+	</div>
+	</div> 
+	</form>
+	</div>
+	</div>
+	
+	<div th:if="${rows>0}" align="center">
+<form action="#" method="post" th:action="@{/getDistUserData}" th:object="${dataModel}" class="form-horizontal" name="dataForm" id="dataForm">
+<input type="hidden" th:field="*{District}"/>
+<input type="submit" class="btn btn-default" value="Download"/>
+</form>
+</div></div>
+	</body>
+</html>

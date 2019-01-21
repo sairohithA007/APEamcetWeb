@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
+	<head>
+    <script>
+	$( document ).ready(function() {
+	   $("#medicalLI").addClass("active");
+	});
+	</script>
+</head>
+
+<body style="margin:auto;">
+
+
+
+<div align="center" layout:fragment="header">
+<br/>
+<form action="#" method="post" th:action="@{/getMedData}" th:object="${dataPojo}"  class="form-horizontal" name="engForm" id="engForm">
+<input type="hidden" id="page" name="page" th:field="*{page}"/>
+<div class="form-group">
+    <label for="rank" class="col-sm-2 control-label text-right">Rank:*</label>
+    <div class="col-sm-6">
+      <input type="number" class="form-control" th:field="*{rank}" id="rank" name="rank" placeholder="rank" min="1" max="300000" required="required"/>
+    </div>
+    </div>
+   
+    <div class="form-group">
+    <label for="CourseCode" class="col-sm-2 control-label text-right">Branch:*</label>
+    <div class="col-sm-6">
+      <select th:field="*{CourseCode}" id="CourseCode" name="CourseCode" class="form-control" required="required">
+      <option value="" name="">Select Branch</option>
+      <option value="PHM" name="PHM">PHM- Pharmacy</option>
+      <option value="PHD" name="PHD">PHD- Pharm-D</option>
+      <option value="BIO" name="BIO">BIO- Bio-Technology</option>
+       <option value="BDS" name="BDS">BDS- Bachelors of Dental Sciences</option>
+      <option value="MBBS" name="MBBS">MBBS-  Bachelor of Medicine and Bachelor of Surgery</option>
+     </select>
+    </div>
+    </div>
+   
+    <div class="form-group">
+    <label for="District" class="col-sm-2 control-label text-right">District:</label>
+    <div class="col-sm-6">
+      <select  name="District" th:field="*{District}" id="District" class="form-control" >
+      <option value="All" name="All">All</option>
+  <option value="ATP" name="ATP">ATP-ANANTAPUR</option>
+  <option value="CTR" name="CTR">CTR-CHITOOR</option>
+  <option value="KDP" name="KDP">KDP-KADAPA</option>
+  <option value="NLR" name="NLR">NLR-NELLORE</option>
+      <option value="PKS" name="PKS">PKS-PRAKASAM</option>
+  <option value="KNL" name="KNL">KNL-KURNOOL</option>
+  <option value="GTR" name="GTR">GTR-GUNTUR</option>
+  <option value="KRI" name="KRI">KRI-KRISHNA</option>
+      <option value="WG" name="WG">WG-WEST GODAVARI</option>
+  <option value="EG" name="EG">EG-EAST GODAVARI</option>
+  <option value="VSP" name="VSP">VSP-VISAKAPATNAM</option>
+  <option value="VZM" name="VZM">VZM-VIZIANAGARAM</option>
+  <option value="SKL" name="SKL">SKL-SRIKAKULAM</option>
+     </select>
+    </div>
+    </div>
+   
+     <div class="form-group">
+    <label for="category" class="col-sm-2 control-label text-right">Category:*</label>
+    <div class="col-sm-6">
+      <select  name="category" th:field="*{category}" id="category" class="form-control" required="required">
+      <option value="" name="">Select Category</option>
+  <option value="ocb" name="OCB">OC-Boys</option>
+  <option value="ocg" name="OCG">OC-Girls</option>
+  <option value="scb" name="SCB">SC-Boys</option>
+  <option value="scg" name="SCG">SC-Girls</option>
+  <option value="stb" name="STB">ST-Boys</option>
+  <option value="stg" name="STG">ST-Girls</option>
+  <option value="bcab" name="BCAB">BC-A-Boys</option>
+  <option value="bcag" name="BCAG">BC-A-Girls</option>
+  <option value="bcbb" name="BCBB">BC-B-Boys</option>
+  <option value="bcbg" name="BCBG">BC-B-Girls</option>
+  <option value="bccb" name="BCCB">BC-C-Boys</option>
+  <option value="bccg" name="BCCG">BC-C-Girls</option>
+  <option value="bcdb" name="BCDB">BC-D-Boys</option>
+  <option value="bcdg" name="BCDG">BC-D-Girls</option>
+  <option value="bceb" name="BCEB">BC-E-Boys</option>
+  <option value="bceg" name="BCEG">BC-E-Girls</option>
+     </select>
+    </div> 
+    </div>
+ <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-6">
+     <input type="reset" class="btn btn-default" onclick="reset()"/>	
+      <button type="submit" class="btn btn-default" onclick="refresh()">Submit</button>
+    </div>
+  </div>
+  </form>
+  <div th:if="${rows>0}">
+ <nav>
+  <ul class="pager">
+     <div th:if="${page!=0}"><li class="previous"><a href="#"  onclick="myFunction(-1)">&larr; Previous</a></li></div>
+  <div th:if="${rows==10}"><li class="next"><a href="#" onclick="myFunction(1)">Next &rarr; </a></li></div>
+  </ul>
+</nav>
+	<div class="table-responsive">
+	<table id="example" class="table table-bordered" th:rows="${rows}" > 
+	<tr>
+		<th>Code</th>
+		<th>College Name</th>
+		<th>Branch</th>
+		<th>Last Rank</th>
+		<th>Place</th>
+		<th>District</th>
+	</tr>
+	<tr th:each="dataPojo : ${dataList}" th:object="${dataPojo}" >
+		<td th:text="${dataPojo.Code}"></td>
+		<td th:text="${dataPojo.InstituteName}"></td>
+		<td th:text="${dataPojo.CourseCode}"></td>
+		<td th:text="${dataPojo.rank}"></td>
+		<td th:text="${dataPojo.Place}"></td>
+		<td th:text="${dataPojo.District}"></td>
+	
+	</tr>
+	</table>  
+	</div>
+<form action="#" method="post" th:action="@{/getMedUserData}" th:object="${dataModel}" class="form-horizontal" name="dataForm" id="dataForm">
+<input type="hidden" th:field="*{rank}"/>
+<input type="hidden" th:field="*{category}"/>
+<input type="hidden" th:field="*{CourseCode}"/>
+<input type="hidden" th:field="*{District}"/>
+<input type="submit" class="btn btn-default" value="Download"/>
+</form>
+</div>
+</div>
+</body>
+</html>
